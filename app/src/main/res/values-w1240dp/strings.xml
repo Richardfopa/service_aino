@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description">Description du titre</string>
+    <string name="content_description_favorite">Favoris</string>
+    <string name="search">Search</string>
+    <string name="content_description_search">Recherche</string>
+    <string name="more">More</string>
+    <string name="content_description_more">Plus</string>
+</resources>

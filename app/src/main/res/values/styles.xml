@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="title_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#ee000000</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="description_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="maxLines">2</item>
+        <item name="android:maxLength">10000</item>
+        <item name="android:layout_gravity">fill_horizontal</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+
+    <style name="style_card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:radius">4sp</item>
+        <item name="android:shadowColor">@color/cardview_shadow_start_color</item>
+        <item name="android:shadowRadius">4</item>
+    </style>
+
+    <style name="style_linear">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">4dp</item>
+<!--        <item name="android:layout_weight">2</item>-->
+    </style>
+</resources>
