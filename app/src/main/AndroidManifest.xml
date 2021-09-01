@@ -11,7 +11,8 @@
         android:theme="@style/Theme.HomeWord">
         <activity
             android:name=".AppBarActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".FoodDescription"
             android:exported="true"
