@@ -5,8 +5,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.LinkedList;
 
@@ -32,6 +36,16 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView mRecyclerView = findViewById(R.id.recylcerview);
         CardView card = findViewById(R.id.card);
         LinearLayout lnly = findViewById(R.id.linear_layout);
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),TacheActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Create an adapter and supply the data to be displayed.
         RecipesAdapter mRadapter = new RecipesAdapter(this, recipesList, card, lnly);

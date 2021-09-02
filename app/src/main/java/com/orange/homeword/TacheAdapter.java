@@ -1,7 +1,10 @@
 package com.orange.homeword;
 
+import static java.lang.Math.toIntExact;
+
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +14,57 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.LinkedList;
+import java.util.Map;
 
 
 public class TacheAdapter extends RecyclerView.Adapter<TacheAdapter.TacheHolder> {
 
     private final LinkedList<Tache> tachesList;
     private final LayoutInflater mInflater;
-    private final CardView card;
 
-    public TacheAdapter(Context context, LinkedList<Tache> tachesList, LinearLayout mInflater, CardView card) {
+    public TacheAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
-        this.tachesList = tachesList;
-        this.card = card;
+        this.tachesList = new LinkedList<>();
+        FirebaseUtil.getReferenceFirestore(FirebaseUtil.TASK_COLLECTION)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null){
+                            Log.w("error:",error);
+                        }
+                        for (DocumentChange dc : value.getDocumentChanges()){
+                            switch (dc.getType()){
+                                case ADDED:
+                                    Log.d("ADD:",dc.getDocument().getData().toString());
+//                                    Tache tache = dc.getDocument().toObject(Tache.class);
+                                    Tache task = new Tache(toIntExact(dc.getDocument().getLong("tCheckboxe")),
+                                            dc.getDocument().getString("tLabel")
+                                    ,dc.getDocument().getTimestamp("date"));
+                                    tachesList.add(task);
+                                    TacheAdapter.this.notifyItemInserted(0);
+                                    break;
+                                case MODIFIED:
+                                    break;
+                                case REMOVED:
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     @NonNull

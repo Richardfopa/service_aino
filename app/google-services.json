@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "840170305467",
+    "project_id": "workshop-task-7210c",
+    "storage_bucket": "workshop-task-7210c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840170305467:android:054ad04412e78c275df69e",
+        "android_client_info": {
+          "package_name": "com.orange.homeword"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "840170305467-0915fuq9sh6vj4p2kflmsusunduu55d7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkTEpJM6UlPriDRr3K9WBNFwaSvHOV6-E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "840170305467-0915fuq9sh6vj4p2kflmsusunduu55d7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

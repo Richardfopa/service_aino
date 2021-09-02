@@ -1,5 +1,8 @@
 package com.orange.homeword;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -15,39 +18,43 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.type.DateTime;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class TacheActivity extends AppCompatActivity {
     private final LinkedList<Tache> tacheList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     LinearLayout lnly;
     CardView card;
+    FirebaseFirestore db
+            = FirebaseFirestore.getInstance();
 //    private
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tache);
-        Tache t1 = new Tache(0,"Revoir les notions de la POO");
-        Tache t2 = new Tache(1,"Revoir les notions de la POO");
-        Tache t3 = new Tache(2,"Revoir les notions de la POO");
-        Tache t4 = new Tache(3,"Revoir les notions de la POO");
-        Tache t5 = new Tache(4,"Revoir les notions de la POO");
-        Tache t6 = new Tache(5,"Revoir les notions de la POO");
-        tacheList.addLast(t1);
-        tacheList.addLast(t2);
-        tacheList.addLast(t3);
-        tacheList.addLast(t4);
-        tacheList.addLast(t5);
-        tacheList.addLast(t6);
+
+        Task<QuerySnapshot> users = db.collection("users").get();
+        Log.d("USERS:",users.toString());
 
         // Get a handle to the RecyclerView.
         mRecyclerView = findViewById(R.id.recyclerviewtache);
         card = findViewById(R.id.cardtaches);
         // Create an adapter and supply the data to be displayed.
         lnly = findViewById(R.id.linear_tache);
-        TacheAdapter tacheAdapter = new TacheAdapter(this,tacheList,lnly,card);
+        TacheAdapter tacheAdapter = new TacheAdapter(this);
         // Connect the adapter with the RecyclerView.
         mRecyclerView.setAdapter(tacheAdapter);
         // Give the RecyclerView a default layout manager.
@@ -77,14 +84,14 @@ public class TacheActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
 
-                                //EditText objectif = findViewById(R.id.username);
                                 String strob = username.getText().toString();
                                 int idstr = tacheList.size() + 1;
-                                tacheList.addLast(new Tache(idstr, strob));
+//                                tacheList.addLast(new Tache(idstr, strob, new Timestamp(new Date())));
+
+                                FirebaseUtil.addTask(new Tache(idstr, strob,new Timestamp(new Date())));
                                 mRecyclerView.getAdapter().notifyItemInserted(tacheList.size());
                                 mRecyclerView.smoothScrollToPosition(tacheList.size());
-//                                tacheAdapter.notifyItemInserted(idstr);
-//                                tacheAdapter.notifyAll();
+
                             }
                         })
                         .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
