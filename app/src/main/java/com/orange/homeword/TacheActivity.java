@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -88,7 +89,7 @@ public class TacheActivity extends AppCompatActivity {
                                 int idstr = tacheList.size() + 1;
 //                                tacheList.addLast(new Tache(idstr, strob, new Timestamp(new Date())));
 
-                                FirebaseUtil.addTask(new Tache(idstr, strob,new Timestamp(new Date())));
+                                FirebaseUtil.addTask(new Tache(idstr, strob,new Timestamp(new Date())), view.getContext());
                                 mRecyclerView.getAdapter().notifyItemInserted(tacheList.size());
                                 mRecyclerView.smoothScrollToPosition(tacheList.size());
 
@@ -96,11 +97,13 @@ public class TacheActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                dismissDialog(id);
+                                Toast.makeText(view.getContext(),"Click sur cancel button ", Toast.LENGTH_LONG);
+
                             }
                         }).show();
                 }
         });
+        int nbretache = tacheAdapter.getItemCount();
     }
 
 }

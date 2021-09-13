@@ -1,6 +1,9 @@
 package com.orange.homeword;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -22,13 +25,14 @@ public class FirebaseUtil {
         return mRefCollection;
     }
 
-    public static void addTask(Tache tache){
+    public static void addTask(Tache tache, Context context){
         getReferenceFirestore(TASK_COLLECTION)
                 .add(tache)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d("SUCCES","Insertion reussi !");
+                        Toast.makeText(context,"Insertion reussi :", Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
